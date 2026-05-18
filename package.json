@@ -47,7 +47,7 @@
     "@opentelemetry/sdk-node": "^0.57.2",
     "@opentelemetry/semantic-conventions": "^1.30.0",
     "ajv": "^8.18.0",
-    "axios": "^1.13.5",
+    "axios": "1.14.0",
     "express": "^4.22.1",
     "googleapis": "^171.4.0",
     "js-yaml": "^4.1.1",
@@ -85,6 +85,7 @@
     "npm": ">=10.0.0"
   },
   "overrides": {
+    "axios": "1.14.0",
     "diff": ">=8.0.3",
     "minimatch": ">=10.2.4",
     "glob": ">=13.0.6"
