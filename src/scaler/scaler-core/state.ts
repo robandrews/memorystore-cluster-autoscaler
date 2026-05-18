@@ -69,6 +69,12 @@ const STATE_KEY_DEFINITIONS = [
  * Used to store state of a cluster
  */
 class State {
+  stateProjectId: any;
+  projectId: any;
+  regionId: any;
+  clusterId: any;
+  engine: any;
+
   /**
    * Build a State object for the given configuration
    *
@@ -110,7 +116,7 @@ class State {
    * Initialize value in storage
    * @return {Promise<*>}
    */
-  async init() {
+  async init(): Promise<any> {
     throw new Error('Not implemented');
   }
 
@@ -119,7 +125,7 @@ class State {
    *
    * @return {Promise<StateData>}
    */
-  async get() {
+  async get(): Promise<any> {
     throw new Error('Not implemented');
   }
 
@@ -184,6 +190,9 @@ module.exports = State;
  * }
  */
 class StateSpanner extends State {
+  stateDatabase: any;
+  table: any;
+
   /**
    * Builds a Spanner DatabaseClient from parameters in spanner.stateDatabase
    * @param {string} stateProjectId
@@ -230,8 +239,8 @@ class StateSpanner extends State {
       stateDatabase,
     );
     if (StateSpanner.databaseClients.has(databasePath)) {
-      return /** @type {spanner.Database} */ (
-        StateSpanner.databaseClients.get(databasePath)
+      return /** @type {spanner.Database} */ StateSpanner.databaseClients.get(
+        databasePath,
       );
     }
     const databaseClient = StateSpanner.createSpannerDatabaseClient(
@@ -337,7 +346,7 @@ class StateSpanner extends State {
         }
       }
     }
-    return /** @type {StateData} */ (ret);
+    return /** @type {StateData} */ ret;
   }
 
   /**
@@ -379,7 +388,7 @@ class StateSpanner extends State {
     const row = StateSpanner.convertToStorage(stateData);
 
     // we never want to update createdOn
-    delete row.createdOn;
+    delete (row as any).createdOn;
 
     await this.writeToSpanner(row);
   }
@@ -418,6 +427,10 @@ class StateSpanner extends State {
  * }
  */
 class StateFirestore extends State {
+  stateDatabaseId: any;
+  firestore: any;
+  _docRef: any;
+
   /**
    * Builds a Firestore client for the given project ID
    * @param {string} stateProjectId
@@ -463,8 +476,8 @@ class StateFirestore extends State {
       stateDatabase,
     );
     if (StateFirestore.firestoreClients.has(databasePath)) {
-      return /** @type {firestore.Firestore} */ (
-        StateFirestore.firestoreClients.get(databasePath)
+      return /** @type {firestore.Firestore} */ StateFirestore.firestoreClients.get(
+        databasePath,
       );
     }
     const databaseClient = StateFirestore.createFirestoreClient(
@@ -529,7 +542,7 @@ class StateFirestore extends State {
         }
       }
     }
-    return /** @type {StateData} */ (ret);
+    return /** @type {StateData} */ ret;
   }
 
   /**
@@ -560,7 +573,7 @@ class StateFirestore extends State {
       }
     }
     // we never want to update createdOn
-    delete doc.createdOn;
+    delete (doc as any).createdOn;
 
     return doc;
   }
@@ -606,7 +619,7 @@ class StateFirestore extends State {
     const doc = StateFirestore.convertToStorage(stateData);
 
     // we never want to update createdOn
-    delete doc.createdOn;
+    delete (doc as any).createdOn;
 
     await this.docRef.update(doc);
   }

@@ -14,7 +14,7 @@
  */
 
 const assert = require('assert');
-const linear = require('../../scaling-methods/linear.js');
+const linear = require('../../scaling-methods/linear');
 
 /**
  * @typedef {import('../../../../autoscaler-common/types')

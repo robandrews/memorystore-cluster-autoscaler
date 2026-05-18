@@ -44,14 +44,12 @@ class ValidationError extends Error {
  * Encapsulates the Ajv validator initialzation and checks.
  */
 class ConfigValidator {
+  ajvConfigValidator: any;
+  ajv: any;
+  pendingInit: any;
+
   /** Creates the class launches async initialization. */
   constructor() {
-    /** @type {ValidateFunction} */
-    this.ajvConfigValidator;
-
-    /** @type {Ajv} */
-    this.ajv;
-
     this.pendingInit = this.initAsync();
   }
 
@@ -149,7 +147,7 @@ async function assertValidGkeConfigMapFile(configValidator, filename) {
 
   try {
     const configText = await fs.readFile(filename, 'utf-8');
-    configMap = /** @type {any} */ (yaml.load(configText));
+    configMap = /** @type {any} */ yaml.load(configText);
   } catch (e) {
     console.error(`Could not parse YAML from ${filename}: ${e}`);
     throw e;

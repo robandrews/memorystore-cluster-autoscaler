@@ -13,7 +13,7 @@
  * limitations under the License
  */
 const sinon = require('sinon');
-const State = require('../state.js');
+const State = require('../state');
 
 const parameters = require('./samples/parameters.json');
 
@@ -36,10 +36,10 @@ const DUMMY_TIMESTAMP = 1704110400000;
  * @return {AutoscalerMemorystoreCluster}
  */
 function createClusterParameters(overrideParams) {
-  return /** @type {AutoscalerMemorystoreCluster} */ ({
+  return /** @type {AutoscalerMemorystoreCluster} */ {
     ...parameters,
     ...overrideParams,
-  });
+  };
 }
 
 /**

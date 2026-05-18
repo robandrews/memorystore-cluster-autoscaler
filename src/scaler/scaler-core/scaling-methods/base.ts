@@ -85,7 +85,7 @@ function getRuleConditionMetrics(ruleResult) {
     ruleConditions = [];
   }
 
-  const /** @type {!Condition[]} */ ruleConditionsList = [];
+  const /** @type {!Condition[]} */ ruleConditionsList: any[] = [];
   for (const ruleCondition of ruleConditions) {
     /*
      * Narrow down typing and skip NestedConditions.
@@ -147,8 +147,8 @@ async function getEngineAnalysis(cluster, ruleSet) {
         [AutoscalerDirection.OUT]: 0,
       },
       matchedConditions: {
-        [AutoscalerDirection.IN]: [],
-        [AutoscalerDirection.OUT]: [],
+        [AutoscalerDirection.IN]: [] as any[],
+        [AutoscalerDirection.OUT]: [] as any[],
       },
       scalingMetrics: {
         [AutoscalerDirection.IN]: new Set(),
@@ -231,9 +231,7 @@ function getScalingDirection(engineAnalysis) {
 function getMaxMemoryUtilization(cluster) {
   const MAX_UTILIZATION_METRIC = 'memory_maximum_utilization';
 
-  for (const metric of /** @type {MemorystoreClusterMetricValue[]} */ (
-    cluster.metrics
-  )) {
+  for (const metric of /** @type {MemorystoreClusterMetricValue[]} */ cluster.metrics) {
     if (metric.name === MAX_UTILIZATION_METRIC) {
       return metric.value;
     }

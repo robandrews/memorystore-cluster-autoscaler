@@ -23,10 +23,10 @@
  */
 // eslint-disable-next-line no-unused-vars -- for type checking only.
 const express = require('express');
-const {convertMillisecToHumanReadable} = require('./utils.js');
+const {convertMillisecToHumanReadable} = require('./utils');
 const {logger} = require('../../autoscaler-common/logger');
-const Counters = require('./counters.js');
-const {publishProtoMsgDownstream} = require('./utils.js');
+const Counters = require('./counters');
+const {publishProtoMsgDownstream} = require('./utils');
 const {
   CloudRedisClusterClient,
   protos: RedisClusterProtos,
@@ -36,7 +36,7 @@ const {
   protos: MemorystoreProtos,
 } = require('@google-cloud/memorystore');
 const sanitize = require('sanitize-filename');
-const State = require('./state.js');
+const State = require('./state');
 const fs = require('fs');
 const {version: packageVersion} = require('../../../package.json');
 const {AutoscalerEngine} = require('../../autoscaler-common/types');
@@ -627,12 +627,12 @@ async function readStateCheckOngoingLRO(cluster, autoscalerState) {
       if (cluster.engine === AutoscalerEngine.REDIS) {
         metadata =
           RedisClusterProtos.google.cloud.redis.cluster.v1.OperationMetadata.decode(
-            /** @type {any} */ (operationState.metadata).value,
+            /** @type {any} */ operationState.metadata.value,
           );
       } else if (cluster.engine === AutoscalerEngine.VALKEY) {
         metadata =
           MemorystoreProtos.google.cloud.memorystore.v1.OperationMetadata.decode(
-            /** @type {any} */ (operationState.metadata).value,
+            /** @type {any} */ operationState.metadata.value,
           );
       } else {
         throw new Error(

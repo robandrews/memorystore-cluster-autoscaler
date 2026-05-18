@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-const cpuHighAverageUtilization = require('../rules/cpu/cpu-high-average-utilization.js');
-const cpuHighMaximumUtilization = require('../rules/cpu/cpu-high-maximum-utilization.js');
-const cpuLowAverageUtilization = require('../rules/cpu/cpu-low-average-utilization.js');
-const cpuLowMaximumUtilization = require('../rules/cpu/cpu-low-maximum-utilization.js');
+const cpuHighAverageUtilization = require('../rules/cpu/cpu-high-average-utilization');
+const cpuHighMaximumUtilization = require('../rules/cpu/cpu-high-maximum-utilization');
+const cpuLowAverageUtilization = require('../rules/cpu/cpu-low-average-utilization');
+const cpuLowMaximumUtilization = require('../rules/cpu/cpu-low-maximum-utilization');
 
-const memoryHighAverageUtilization = require('../rules/memory/memory-high-average-utilization.js');
-const memoryHighMaximumUtilization = require('../rules/memory/memory-high-maximum-utilization.js');
-const memoryLowAverageUtilization = require('../rules/memory/memory-low-average-utilization.js');
-const memoryLowMaximumUtilization = require('../rules/memory/memory-low-maximum-utilization.js');
+const memoryHighAverageUtilization = require('../rules/memory/memory-high-average-utilization');
+const memoryHighMaximumUtilization = require('../rules/memory/memory-high-maximum-utilization');
+const memoryLowAverageUtilization = require('../rules/memory/memory-low-average-utilization');
+const memoryLowMaximumUtilization = require('../rules/memory/memory-low-maximum-utilization');
 
 /**
  * @typedef {import('../../../../autoscaler-common/types.js').RuleSet} RuleSet

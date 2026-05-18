@@ -22,9 +22,9 @@ const sinon = require('sinon');
 const referee = require('@sinonjs/referee');
 // @ts-ignore
 const assert = referee.assert;
-const {createDownstreamMsg} = require('./test-utils.js');
+const {createDownstreamMsg} = require('./test-utils');
 
-const app = rewire('../utils.js');
+const app = rewire('../utils.ts');
 
 const {PubSub} = require('@google-cloud/pubsub');
 const pubsub = new PubSub();
