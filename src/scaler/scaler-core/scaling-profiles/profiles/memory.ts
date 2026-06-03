@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-const memoryHighAverageUtilization = require('../rules/memory/memory-high-average-utilization.js');
-const memoryHighMaximumUtilization = require('../rules/memory/memory-high-maximum-utilization.js');
-const memoryLowAverageUtilization = require('../rules/memory/memory-low-average-utilization.js');
-const memoryLowMaximumUtilization = require('../rules/memory/memory-low-maximum-utilization.js');
+const memoryHighAverageUtilization = require('../rules/memory/memory-high-average-utilization');
+const memoryHighMaximumUtilization = require('../rules/memory/memory-high-maximum-utilization');
+const memoryLowAverageUtilization = require('../rules/memory/memory-low-average-utilization');
+const memoryLowMaximumUtilization = require('../rules/memory/memory-low-maximum-utilization');
 
 /**
  * @typedef {import('../../../../autoscaler-common/types.js').RuleSet}

@@ -19,7 +19,7 @@
  * Publishes Counters to Cloud Monitoring
  *
  */
-const CountersBase = require('../../autoscaler-common/counters-base.js');
+const CountersBase = require('../../autoscaler-common/counters-base');
 
 const COUNTERS_PREFIX = 'poller/';
 

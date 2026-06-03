@@ -36,8 +36,8 @@ const Semconv = require('@opentelemetry/semantic-conventions');
 const OpenTelemetryApi = require('@opentelemetry/api');
 const OpenTelemetryCore = require('@opentelemetry/core');
 const {setTimeout} = require('timers/promises');
-const {logger} = require('./logger.js');
-const PromiseWithResolvers = require('./promiseWithResolvers.js');
+const {logger} = require('./logger');
+const PromiseWithResolvers = require('./promiseWithResolvers');
 const {version: packageVersion} = require('../../package.json');
 
 /**
@@ -142,7 +142,7 @@ const COUNTERS = new Map();
 let meterProvider;
 
 /** @type {PromiseWithResolvers.PromiseWithResolvers?} */
-let pendingInit;
+let pendingInit: any;
 
 /**
  * Wrapper class for OpenTelemetry DiagLogger to convert to Bunyan log levels
@@ -150,12 +150,10 @@ let pendingInit;
  * @extends {OpenTelemetryApi.DiagLogger}
  */
 class DiagToBunyanLogger {
+  suppressErrors = false;
+
   /** @constructor */
-  constructor() {
-    // In some cases where errors may be expected, we want to be able to supress
-    // them.
-    this.suppressErrors = false;
-  }
+  constructor() {}
 
   /**
    * @param {string} message
@@ -402,7 +400,7 @@ function recordValue(counterName, value, counterAttributes) {
 
 let lastForceFlushTime = 0;
 /** @type {PromiseWithResolvers.PromiseWithResolvers?} */
-let flushInProgress = null;
+let flushInProgress: any = null;
 let tryFlushEnabled = true;
 
 /**

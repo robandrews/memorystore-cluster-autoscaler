@@ -65,7 +65,7 @@ function getMetricsForScaling(cluster, direction, engineAnalysis) {
 
   // Doing a map and filter would be more elegant, but filter() does not
   // properly narrow down types.
-  const /** @type {ScalingMetricList} */ matchedMetrics = [];
+  const /** @type {ScalingMetricList} */ matchedMetrics: any[] = [];
   for (const matchedCondition of matchedConditions) {
     const metricName = matchedCondition.fact;
     if (!scalingMetrics.has(metricName)) continue;
@@ -154,7 +154,7 @@ function getSuggestedSize(cluster, direction, engineAnalysis) {
   );
   if (!scalingMetricList) return cluster.currentSize;
 
-  let suggestedSize = null;
+  let suggestedSize: number | null = null;
   for (const scalingMetric of scalingMetricList) {
     // This should not happen as this check is done on getMetricsForScaling
     // and an error message is logged. However, this helps type inference.
@@ -172,21 +172,21 @@ function getSuggestedSize(cluster, direction, engineAnalysis) {
   if (direction === AutoscalerDirection.IN) {
     if (cluster.scaleInLimit) {
       suggestedSize = Math.max(
-        suggestedSize,
+        suggestedSize!,
         cluster.currentSize - cluster.scaleInLimit,
       );
     }
 
-    if (suggestedSize < cluster.currentSize) return suggestedSize;
+    if (suggestedSize! < cluster.currentSize) return suggestedSize!;
   } else if (direction === AutoscalerDirection.OUT) {
     if (cluster.scaleOutLimit) {
       suggestedSize = Math.min(
-        suggestedSize,
+        suggestedSize!,
         cluster.currentSize + cluster.scaleOutLimit,
       );
     }
 
-    if (suggestedSize > cluster.currentSize) return suggestedSize;
+    if (suggestedSize! > cluster.currentSize) return suggestedSize!;
   }
 
   return cluster.currentSize;

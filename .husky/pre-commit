@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 echo "Running .husky/pre-commit checks. Use -n/--no-verify to skip"
 echo "------------------------------------------------------------"
@@ -6,8 +6,8 @@ echo "------------------------------------------------------------"
 npm run prettier-check
 npm run eslint
 
-function hasModifiedMatching() {
-  [[ -z "$1" ]] && echo "hasModifiedMatching needs arg" && return 1
+hasModifiedMatching() {
+  [ -z "$1" ] && echo "hasModifiedMatching needs arg" && return 1
   git status --short  --untracked-files=all --column=never | grep -q "$1"
   return $?
 }

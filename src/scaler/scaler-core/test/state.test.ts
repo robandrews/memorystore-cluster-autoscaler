@@ -70,15 +70,15 @@ const {
 } = require('../../../autoscaler-common/types');
 // override module with rewired module
 // @ts-ignore
-State = rewire('../state.js');
+State = rewire('../state.ts');
 
-// @ts-expect-error
+// @ts-ignore
 State.__set__('firestore', dummyFirestoreModule);
-// @ts-expect-error
+// @ts-ignore
 State.__set__('spanner', dummySpannerModule);
-// @ts-expect-error
+// @ts-ignore
 const StateFirestore = State.__get__('StateFirestore');
-// @ts-expect-error
+// @ts-ignore
 const StateSpanner = State.__get__('StateSpanner');
 
 afterEach(() => {
@@ -194,7 +194,7 @@ describe('stateFirestoreTests', () => {
     const config = {
       ...autoscalerConfig,
     };
-    delete config.stateProjectId;
+    delete (config as any).stateProjectId;
     const state = State.buildFor(config);
     assert.equals(state.constructor.name, 'StateFirestore');
     sinon.assert.calledWith(stubFirestoreConstructor, {
@@ -213,7 +213,7 @@ describe('stateFirestoreTests', () => {
       ...autoscalerConfig,
       ...databaseConfig,
     };
-    delete config.stateProjectId;
+    delete (config as any).stateProjectId;
     const state = State.buildFor(config);
     assert.equals(state.constructor.name, 'StateFirestore');
     sinon.assert.calledWith(stubFirestoreConstructor, {
@@ -233,7 +233,7 @@ describe('stateFirestoreTests', () => {
       ...autoscalerConfig,
       ...databaseConfig,
     };
-    delete config.stateProjectId;
+    delete (config as any).stateProjectId;
     const state = State.buildFor(config);
     assert.equals(state.constructor.name, 'StateFirestore');
     sinon.assert.calledWith(stubFirestoreConstructor, {
@@ -464,7 +464,7 @@ describe('stateSpannerTests', () => {
     const config = {
       ...autoscalerConfig,
     };
-    delete config.stateProjectId;
+    delete (config as any).stateProjectId;
     const state = State.buildFor(config);
     assert.equals(state.constructor.name, 'StateSpanner');
     sinon.assert.calledWith(stubSpannerConstructor, {

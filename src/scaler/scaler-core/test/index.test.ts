@@ -23,7 +23,7 @@ const {
   createClusterParameters,
   createStubState,
   createStateData,
-} = require('./test-utils.js');
+} = require('./test-utils');
 const {afterEach} = require('mocha');
 const protobufjs = require('protobufjs');
 const {AutoscalerEngine} = require('../../../autoscaler-common/types');
@@ -47,14 +47,14 @@ afterEach(() => {
 });
 
 describe('#getScalingRuleSet', () => {
-  const app = rewire('../index.js');
+  const app = rewire('../index.ts');
   const getScalingRuleSet = app.__get__('getScalingRuleSet');
 
   it('should return the ruleset for the profile name', async function () {
     const cluster = createClusterParameters();
     cluster.scalingProfile = 'CPU';
     const expectedScalingRuleSetCpu =
-      require('../scaling-profiles/profiles/cpu.js').ruleSet;
+      require('../scaling-profiles/profiles/cpu').ruleSet;
     const scalingRuleSetCpu = getScalingRuleSet(cluster);
     assert.equals(scalingRuleSetCpu, expectedScalingRuleSetCpu);
     assert.equals(cluster.scalingProfile, 'CPU');
@@ -64,7 +64,7 @@ describe('#getScalingRuleSet', () => {
     const cluster = createClusterParameters();
     cluster.scalingProfile = 'UNKNOWN_SCALING_PROFILE';
     const expectedScalingRuleSetCpuAndMemory =
-      require('../scaling-profiles/profiles/cpu_and_memory.js').ruleSet;
+      require('../scaling-profiles/profiles/cpu_and_memory').ruleSet;
     const scalingRuleSetCpuAndMemory = getScalingRuleSet(cluster);
     assert.equals(
       scalingRuleSetCpuAndMemory,
@@ -88,7 +88,7 @@ describe('#getScalingRuleSet', () => {
 });
 
 describe('#getScalingMethod', () => {
-  const app = rewire('../index.js');
+  const app = rewire('../index.ts');
   const getScalingMethod = app.__get__('getScalingMethod');
 
   it('should return the configured scaling method function', async function () {
@@ -109,7 +109,7 @@ describe('#getScalingMethod', () => {
 });
 
 describe('#scaleMemorystoreCluster', () => {
-  const app = rewire('../index.js');
+  const app = rewire('../index.ts');
   const scaleMemorystoreCluster = app.__get__('scaleMemorystoreCluster');
   /** @type {sinon.SinonStubbedInstance<CloudRedisClusterClient>} */
   let memorystoreRedisClientStub;
@@ -185,7 +185,7 @@ describe('#scaleMemorystoreCluster', () => {
 });
 
 describe('#processScalingRequest', () => {
-  const app = rewire('../index.js');
+  const app = rewire('../index.ts');
   const processScalingRequest = app.__get__('processScalingRequest');
 
   const countersStub = {
@@ -323,7 +323,7 @@ describe('#processScalingRequest', () => {
 });
 
 describe('#withinCooldownPeriod', () => {
-  const app = rewire('../index.js');
+  const app = rewire('../index.ts');
   const withinCooldownPeriod = app.__get__('withinCooldownPeriod');
 
   /** @type {StateData} */
@@ -455,7 +455,7 @@ describe('#withinCooldownPeriod', () => {
 });
 
 describe('#getOperationState', () => {
-  const app = rewire('../index.js');
+  const app = rewire('../index.ts');
   const getOperationState = app.__get__('getOperationState');
   /** @type {sinon.SinonStubbedInstance<CloudRedisClusterClient>} */
   let memorystoreRedisClientStub;
@@ -513,7 +513,7 @@ describe('#getOperationState', () => {
       assert.fail('Expected an unknown engine error to be thrown');
     } catch (err) {
       assert.equals(
-        /** @type {Error}*/ (err).message,
+        /** @type {Error}*/ (err as Error).message,
         `Unknown engine retriving LRO state: ${engine}`,
       );
     }
@@ -523,7 +523,7 @@ describe('#getOperationState', () => {
 });
 
 describe('#readStateCheckOngoingLRO', () => {
-  const app = rewire('../index.js');
+  const app = rewire('../index.ts');
   const readStateCheckOngoingLRO = app.__get__('readStateCheckOngoingLRO');
 
   /** @type {StateData} */

@@ -25,9 +25,9 @@ const sinon = require('sinon');
 const referee = require('@sinonjs/referee');
 // @ts-ignore
 const assert = referee.assert;
-const {createClusterParameters} = require('../test-utils.js');
+const {createClusterParameters} = require('../test-utils');
 
-const app = rewire('../../scaling-methods/direct.js');
+const app = rewire('../../scaling-methods/direct.ts');
 
 /**
  * @typedef {import('../../../../autoscaler-common/types')

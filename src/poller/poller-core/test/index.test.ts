@@ -24,7 +24,7 @@ const rewire = require('rewire');
 const should = require('should');
 const sinon = require('sinon');
 
-const app = rewire('../index.js');
+const app = rewire('../index.ts');
 
 const {AutoscalerEngine} = require('../../../autoscaler-common/types');
 

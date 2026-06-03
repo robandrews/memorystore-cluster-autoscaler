@@ -20,12 +20,12 @@
 /* eslint max-len: ["error", { "ignorePattern": "^\\s*it\\(" }] */
 const rewire = require('rewire');
 
-const app = rewire('../../scaling-methods/base.js');
-const {createClusterParameters, metricsOverlay} = require('../test-utils.js');
+const app = rewire('../../scaling-methods/base.ts');
+const {createClusterParameters, metricsOverlay} = require('../test-utils');
 const {AutoscalerDirection} = require('../../../../autoscaler-common/types');
 const {
   ruleSet: defaultRuleSet,
-} = require('../../scaling-profiles/profiles/cpu_and_memory.js');
+} = require('../../scaling-profiles/profiles/cpu_and_memory');
 
 /**
  * @typedef { import('../../../../autoscaler-common/types')

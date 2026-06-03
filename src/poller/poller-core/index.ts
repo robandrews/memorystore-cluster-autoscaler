@@ -27,7 +27,7 @@ const {logger} = require('../../autoscaler-common/logger');
 const {PubSub} = require('@google-cloud/pubsub');
 const {CloudRedisClusterClient} = require('@google-cloud/redis-cluster');
 const {MemorystoreClient} = require('@google-cloud/memorystore');
-const Counters = require('./counters.js');
+const Counters = require('./counters');
 const {
   AutoscalerEngine,
   AutoscalerUnits,
@@ -361,9 +361,9 @@ async function getMetrics(cluster) {
   });
 
   /** @type {MemorystoreClusterMetricValue[]} */
-  const metrics = [];
+  const metrics: any[] = [];
   for (const m of cluster.metrics) {
-    const metric = /** @type {MemorystoreClusterMetric} */ (m);
+    const metric = /** @type {MemorystoreClusterMetric} */ m;
     const [maxMetricValue, maxLocation] = await getMaxMetricValue(
       cluster.projectId,
       cluster.regionId,
@@ -397,13 +397,13 @@ async function getMetrics(cluster) {
 async function parseAndEnrichPayload(payload) {
   /** @type {AutoscalerMemorystoreCluster[]} */
   const clusters = await configValidator.parseAndAssertValidConfig(payload);
-  const clustersFound = [];
+  const clustersFound: any[] = [];
 
   for (let clusterIdx = 0; clusterIdx < clusters.length; clusterIdx++) {
     // Reference before the modifications are made to the metrics structure
     const customMetrics =
       /** @type {MemorystoreClusterMetric[]} */
-      (clusters[clusterIdx].metrics);
+      clusters[clusterIdx].metrics;
 
     // Merge in the defaults
     clusters[clusterIdx] = {...baseDefaults, ...clusters[clusterIdx]};
@@ -534,7 +534,7 @@ async function forwardMetrics(forwarderFunction, clusters) {
  * @return {Promise<AutoscalerMemorystoreCluster[]>} aggregatedMetrics
  */
 async function aggregateMetrics(clusters) {
-  const aggregatedMetrics = [];
+  const aggregatedMetrics: any[] = [];
   for (const cluster of clusters) {
     try {
       cluster.metrics = await getMetrics(cluster);
@@ -597,7 +597,7 @@ async function checkMemorystoreClusterScaleMetricsPubSub(pubSubEvent) {
  */
 async function checkMemorystoreClusterScaleMetricsHTTP(req, res) {
   const payload = JSON.stringify([
-    /** @type {AutoscalerMemorystoreCluster} */ ({
+    /** @type {AutoscalerMemorystoreCluster} */ {
       projectId: 'memorystore-cluster-scaler',
       regionId: 'us-central1',
       clusterId: 'autoscale-test',
@@ -607,7 +607,7 @@ async function checkMemorystoreClusterScaleMetricsHTTP(req, res) {
       maxSize: 10,
       stateProjectId: 'state-project-id',
       units: AutoscalerUnits.SHARDS,
-    }),
+    },
   ]);
   try {
     const clusters = await parseAndEnrichPayload(payload);

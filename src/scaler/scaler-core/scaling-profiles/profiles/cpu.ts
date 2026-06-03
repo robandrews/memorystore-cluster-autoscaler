@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-const cpuHighAverageUtilization = require('../rules/cpu/cpu-high-average-utilization.js');
-const cpuHighMaximumUtilization = require('../rules/cpu/cpu-high-maximum-utilization.js');
-const cpuLowAverageUtilization = require('../rules/cpu/cpu-low-average-utilization.js');
-const cpuLowMaximumUtilization = require('../rules/cpu/cpu-low-maximum-utilization.js');
+const cpuHighAverageUtilization = require('../rules/cpu/cpu-high-average-utilization');
+const cpuHighMaximumUtilization = require('../rules/cpu/cpu-high-maximum-utilization');
+const cpuLowAverageUtilization = require('../rules/cpu/cpu-low-average-utilization');
+const cpuLowMaximumUtilization = require('../rules/cpu/cpu-low-maximum-utilization');
 
 /**
  * @typedef {import('../../../../autoscaler-common/types.js').RuleSet}

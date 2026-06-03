@@ -14,8 +14,8 @@
  */
 
 const sinon = require('sinon');
-const Counters = require('../counters.js');
-const CountersBase = require('../../../autoscaler-common/counters-base.js');
+const Counters = require('../counters');
+const CountersBase = require('../../../autoscaler-common/counters-base');
 
 describe('#scaler-counters', () => {
   let baseIncCounter = sinon.stub(CountersBase, 'incCounter');
